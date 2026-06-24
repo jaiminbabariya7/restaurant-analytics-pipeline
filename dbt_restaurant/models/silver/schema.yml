@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Cleaned and enriched orders — adds time dimensions, surrogate key, day_part classification"
+    columns:
+      - name: surrogate_key
+        tests: [not_null, unique]
+      - name: order_id
+        tests: [not_null]
+      - name: location_id
+        tests: [not_null]
+      - name: total_amount
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+  - name: stg_order_items
+    description: "Enriched order line items — joined with menu cost prices to compute gross profit and margin"
+    columns:
+      - name: surrogate_key
+        tests: [not_null, unique]
+      - name: gross_profit
+        tests: [not_null]

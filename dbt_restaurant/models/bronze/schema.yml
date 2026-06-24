@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: bronze
+    schema: main
+    tables:
+      - name: bronze_orders
+      - name: bronze_order_items
+      - name: bronze_menu
+      - name: bronze_locations
+      - name: bronze_promotions
+      - name: bronze_menu_price_history
+
+models:
+  - name: src_orders
+    description: "Raw orders view with basic type casting from Bronze layer"
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: location_id
+        tests: [not_null]
+
+  - name: src_order_items
+    description: "Raw order line items view from Bronze layer"
+    columns:
+      - name: order_item_id
+        tests: [not_null, unique]
+
+  - name: src_menu
+    description: "Menu items reference view"
+    columns:
+      - name: item_id
+        tests: [not_null, unique]
+
+  - name: src_locations
+    description: "Franchise location reference view"
+    columns:
+      - name: location_id
+        tests: [not_null, unique]

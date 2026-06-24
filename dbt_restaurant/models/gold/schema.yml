@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: mart_menu_performance
+    description: "Menu Engineering Matrix — classifies all 47 items as Star / Plow Horse / Puzzle / Dog with business recommendations"
+
+  - name: mart_location_comparison
+    description: "Monthly location comparison with revenue share window function"
+
+  - name: mart_time_analysis
+    description: "Hour × day-of-week aggregation for peak demand heatmap analysis"
+
+  - name: mart_revenue_trends
+    description: "Month-over-month growth via LAG() and YTD running total per location"

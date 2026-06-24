@@ -1,0 +1,31 @@
+name: 'restaurant_pipeline'
+version: '1.0.0'
+config-version: 2
+
+profile: 'restaurant'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  restaurant_pipeline:
+    bronze:
+      +schema: bronze
+      +materialized: view
+    silver:
+      +schema: silver
+      +materialized: incremental
+      +unique_key: surrogate_key
+    gold:
+      +schema: gold
+      +materialized: table
+
+vars:
+  project_name: 'Restaurant Co. — Restaurant Franchise'
+  locations: ['LOC-GRM', 'LOC-WTD', 'LOC-DUN', 'LOC-WIN', 'LOC-PTC']
+  tax_rate: 0.13

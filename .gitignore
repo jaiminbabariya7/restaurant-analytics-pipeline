@@ -1,0 +1,18 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Client data — not for version control
+data/raw/
+data/bronze/*.duckdb
+
+# Runtime logs and reports (generated on each run)
+output/logs/
+output/reports/
+
+# dbt artifacts
+dbt_restaurant/target/
+dbt_restaurant/logs/
+dbt_restaurant/.user.yml

@@ -1,0 +1,6 @@
+duckdb==0.10.3
+pandas==2.2.2
+numpy==1.26.4
+dbt-core==1.8.0
+dbt-duckdb==1.8.0
+apache-airflow==2.9.1
