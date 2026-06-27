@@ -29,3 +29,16 @@ Python / SQL / dbt / DuckDB / Apache Airflow
 
 ## Data
 Sample/synthetic data only. Real data paths (data/raw/, *.duckdb) are git-ignored and never committed.
+
+## Dashboards (sample data)
+Generated on synthetic sample data to demonstrate the analytics layer — no real company or customer data.
+
+| Executive KPIs | Menu Engineering |
+|---|---|
+| ![Executive KPI Dashboard](screenshots/01_executive_kpi_dashboard.png) | ![Menu Engineering Matrix](screenshots/02_menu_engineering_matrix.png) |
+| **Location Comparison** | **Demand Heatmap** |
+| ![Location Comparison](screenshots/03_location_comparison_dashboard.png) | ![Demand Heatmap](screenshots/04_hour_day_heatmap.png) |
+| **Revenue Trends & MoM Growth** | **Data Quality Report** |
+| ![Revenue Trends](screenshots/05_revenue_trends_mom_growth.png) | ![Data Quality Report](screenshots/06_data_quality_report.png) |
+| **Pipeline Architecture** | **dbt Lineage & Airflow DAG** |
+| ![Pipeline Architecture](screenshots/07_pipeline_architecture.png) | ![dbt Lineage](screenshots/08_dbt_lineage_airflow_dag.png) |
