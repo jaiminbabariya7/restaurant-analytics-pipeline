@@ -11,7 +11,7 @@ A multi-location restaurant operator needed visibility into:
 - Which menu items are actually profitable vs. just popular
 - How each location performs month-over-month
 - When peak demand occurs by hour and day
-- How historical price changes affect margins (SCD Type 2)
+- How menu prices change over time (price history ingested with SCD Type 2 fields: `effective_from`, `effective_to`, `is_current`; the margin marts currently use current cost prices)
 
 ## Architecture
 POS exports (CSV) -> ingestion (Python) -> Bronze (DuckDB) -> dbt medallion models
