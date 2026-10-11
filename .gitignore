@@ -4,7 +4,8 @@ __pycache__/
 *.pyo
 .env
 
-# Client data — not for version control
+# Generated sample data and the local warehouse (regenerate with
+# python code/ingestion/generate_sample_data.py)
 data/raw/
 data/bronze/*.duckdb
 

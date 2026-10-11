@@ -14,4 +14,4 @@ SELECT
     line_total::DECIMAL(10,2)  AS line_total,
     promo_id,
     CURRENT_TIMESTAMP          AS _ingested_at
-FROM bronze_order_items
+FROM {{ source('bronze', 'bronze_order_items') }}

@@ -11,10 +11,7 @@ models:
       - name: location_id
         tests: [not_null]
       - name: total_amount
-        tests:
-          - not_null
-          - dbt_utils.accepted_range:
-              min_value: 0
+        tests: [not_null]   # non-negative check: tests/assert_no_negative_order_totals.sql
 
   - name: stg_order_items
     description: "Enriched order line items — joined with menu cost prices to compute gross profit and margin"

@@ -6,8 +6,8 @@ SELECT
     category,
     subcategory,
     size,
-    CAST(price AS DECIMAL(10,2))      AS price,
-    CAST(cost_price AS DECIMAL(10,2)) AS cost_price,
-    is_active::BOOLEAN                AS is_active
+    CAST(selling_price AS DECIMAL(10,2)) AS price,
+    CAST(cost_price AS DECIMAL(10,2))    AS cost_price,
+    is_active::BOOLEAN                   AS is_active
 FROM {{ source('bronze', 'bronze_menu') }}
 WHERE item_id IS NOT NULL

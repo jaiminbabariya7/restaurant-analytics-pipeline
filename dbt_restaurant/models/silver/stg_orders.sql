@@ -35,7 +35,7 @@ enriched AS (
             WHEN 5 THEN 'Friday'
             WHEN 6 THEN 'Saturday'
         END                                     AS day_name,
-        CASE WHEN EXTRACT(DOW FROM order_date) IN (5,6) THEN TRUE ELSE FALSE END AS is_weekend,
+        CASE WHEN EXTRACT(DOW FROM order_date) IN (0,6) THEN TRUE ELSE FALSE END AS is_weekend,   -- Sun, Sat
         EXTRACT(HOUR FROM order_time)::INT      AS order_hour,
         CASE
             WHEN EXTRACT(HOUR FROM order_time) BETWEEN 11 AND 14 THEN 'Lunch'
@@ -54,7 +54,7 @@ enriched AS (
         CURRENT_TIMESTAMP                       AS _transformed_at
     FROM source
     WHERE order_id IS NOT NULL
-      AND location_id IN ('LOC-GRM','LOC-WTD','LOC-DUN','LOC-WIN','LOC-PTC')
+      AND location_id IN ({% for loc in var('locations') %}'{{ loc }}'{% if not loop.last %}, {% endif %}{% endfor %})
 )
 
 SELECT * FROM enriched

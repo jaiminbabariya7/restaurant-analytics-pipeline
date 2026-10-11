@@ -26,6 +26,6 @@ models:
       +materialized: table
 
 vars:
-  project_name: 'Restaurant Co. — Restaurant Franchise'
-  locations: ['LOC-GRM', 'LOC-WTD', 'LOC-DUN', 'LOC-WIN', 'LOC-PTC']
+  project_name: 'Restaurant Co. (synthetic sample)'
+  locations: ['LOC-01', 'LOC-02', 'LOC-03', 'LOC-04', 'LOC-05']
   tax_rate: 0.13

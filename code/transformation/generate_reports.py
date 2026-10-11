@@ -1,6 +1,6 @@
 """
 Restaurant Co. — Daily Report Generator
-Reads Gold layer tables and exports summary CSVs for Power BI refresh and owner email.
+Reads the dbt Gold tables (gold.mart_*) and exports summary CSVs for BI refresh and the owner email.
 """
 
 import duckdb
@@ -22,10 +22,10 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 REPORTS = {
-    "menu_performance":    "SELECT * FROM gold_mart_menu_performance ORDER BY total_revenue DESC",
-    "location_comparison": "SELECT * FROM gold_mart_location_comparison ORDER BY order_year, order_month, total_revenue DESC",
-    "revenue_trends":      "SELECT * FROM gold_mart_revenue_trends ORDER BY location_id, order_year, order_month",
-    "time_analysis":       "SELECT location_name, day_name, order_hour, SUM(total_orders) AS total_orders, ROUND(SUM(total_revenue),2) AS total_revenue FROM gold_mart_time_analysis GROUP BY 1,2,3 ORDER BY 2,3",
+    "menu_performance":    "SELECT * FROM gold.mart_menu_performance ORDER BY total_revenue DESC",
+    "location_comparison": "SELECT * FROM gold.mart_location_comparison ORDER BY order_year, order_month, total_revenue DESC",
+    "revenue_trends":      "SELECT * FROM gold.mart_revenue_trends ORDER BY location_id, order_year, order_month",
+    "time_analysis":       "SELECT location_name, day_name, order_hour, SUM(total_orders) AS total_orders, ROUND(SUM(total_revenue),2) AS total_revenue FROM gold.mart_time_analysis GROUP BY 1,2,3 ORDER BY 2,3",
 }
 
 def run():

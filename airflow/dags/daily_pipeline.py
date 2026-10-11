@@ -1,7 +1,7 @@
 """
 Restaurant Co. — Daily Menu Performance Pipeline
 Runs every morning at 6:00 AM EST
-Orchestrates: Ingest → Validate → dbt Bronze → dbt Silver → dbt Tests → dbt Gold → Report
+Orchestrates: Ingest → Validate → dbt Bronze → dbt Silver → dbt Gold → dbt Tests → Report
 """
 
 from datetime import datetime, timedelta
@@ -36,7 +36,7 @@ with DAG(
     schedule_interval="0 6 * * *",   # 6:00 AM daily
     catchup=False,
     max_active_runs=1,
-    tags=["restaurant", "restaurant", "dbt", "daily"],
+    tags=["restaurant", "dbt", "duckdb", "daily"],
 ) as dag:
 
     # ── TASK 1: Check source files arrived ─────────────────────────────────────
@@ -79,16 +79,16 @@ with DAG(
         bash_command=f"cd {BASE}/dbt_restaurant && dbt run --select silver --profiles-dir .",
     )
 
-    # ── TASK 6: dbt Tests ─────────────────────────────────────────────────────
-    t6_dbt_tests = BashOperator(
-        task_id="run_dbt_tests",
-        bash_command=f"cd {BASE}/dbt_restaurant && dbt test --profiles-dir .",
-    )
-
-    # ── TASK 7: dbt Gold models ───────────────────────────────────────────────
-    t7_dbt_gold = BashOperator(
+    # ── TASK 6: dbt Gold models ───────────────────────────────────────────────
+    t6_dbt_gold = BashOperator(
         task_id="run_dbt_gold_models",
         bash_command=f"cd {BASE}/dbt_restaurant && dbt run --select gold --profiles-dir .",
+    )
+
+    # ── TASK 7: dbt Tests (all layers, after Gold exists) ─────────────────────
+    t7_dbt_tests = BashOperator(
+        task_id="run_dbt_tests",
+        bash_command=f"cd {BASE}/dbt_restaurant && dbt test --profiles-dir .",
     )
 
     # ── TASK 8: Generate Reports ──────────────────────────────────────────────
@@ -114,4 +114,4 @@ with DAG(
     )
 
     # ── DAG DEPENDENCY CHAIN ──────────────────────────────────────────────────
-    t1_check_files >> t2_ingest >> t3_quality >> t4_dbt_bronze >> t5_dbt_silver >> t6_dbt_tests >> t7_dbt_gold >> t8_reports >> t9_email
+    t1_check_files >> t2_ingest >> t3_quality >> t4_dbt_bronze >> t5_dbt_silver >> t6_dbt_gold >> t7_dbt_tests >> t8_reports >> t9_email

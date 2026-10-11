@@ -1,6 +1,6 @@
 """
 Restaurant Co. — Data Quality Layer
-Great Expectations-style validation checks on Bronze layer before Silver promotion
+Great Expectations-style SQL checks on the Bronze layer before Silver promotion
 """
 
 import duckdb
@@ -26,7 +26,7 @@ CHECKS = [
     # Orders
     {"table":"bronze_orders","name":"orders_no_null_order_id",       "sql":"SELECT COUNT(*) FROM bronze_orders WHERE order_id IS NULL",                        "expect":0,   "operator":"eq"},
     {"table":"bronze_orders","name":"orders_no_null_location",        "sql":"SELECT COUNT(*) FROM bronze_orders WHERE location_id IS NULL",                     "expect":0,   "operator":"eq"},
-    {"table":"bronze_orders","name":"orders_valid_locations",         "sql":"SELECT COUNT(*) FROM bronze_orders WHERE location_id NOT IN ('LOC-GRM','LOC-WTD','LOC-DUN','LOC-WIN','LOC-PTC')", "expect":0, "operator":"eq"},
+    {"table":"bronze_orders","name":"orders_valid_locations",         "sql":"SELECT COUNT(*) FROM bronze_orders WHERE location_id NOT IN ('LOC-01','LOC-02','LOC-03','LOC-04','LOC-05')", "expect":0, "operator":"eq"},
     {"table":"bronze_orders","name":"orders_valid_order_types",       "sql":"SELECT COUNT(*) FROM bronze_orders WHERE order_type NOT IN ('Dine-In','Takeout','Delivery')", "expect":0, "operator":"eq"},
     {"table":"bronze_orders","name":"orders_tax_positive",            "sql":"SELECT COUNT(*) FROM bronze_orders WHERE tax_amount < 0 AND is_refund = false",    "expect":0,   "operator":"eq"},
     {"table":"bronze_orders","name":"orders_total_matches_subtotal",  "sql":"SELECT COUNT(*) FROM bronze_orders WHERE ABS(total_amount - subtotal - tax_amount) > 0.02 AND is_refund = false", "expect":0, "operator":"eq"},

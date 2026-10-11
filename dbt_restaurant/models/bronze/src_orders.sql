@@ -17,4 +17,4 @@ SELECT
     payment_method,
     is_refund::BOOLEAN      AS is_refund,
     CURRENT_TIMESTAMP       AS _ingested_at
-FROM bronze_orders
+FROM {{ source('bronze', 'bronze_orders') }}
